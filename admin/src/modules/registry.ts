@@ -1,5 +1,5 @@
-import type { AppModule } from './types'
-import { servicesModule } from './services'
+import type { AppModule } from '@/modules/types'
+import { servicesModule } from '@/modules/services'
 
 export const modules: AppModule[] = [
   servicesModule,

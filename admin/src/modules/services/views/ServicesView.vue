@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useServicesStore } from '../store'
+import { useServicesStore } from '@/modules/services/store'
 
 const store = useServicesStore()
 onMounted(store.load)

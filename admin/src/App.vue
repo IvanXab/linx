@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { modules } from './modules/registry'
+import { modules } from '@/modules/registry'
 
 const navItems = modules.flatMap((m) => m.nav ?? [])
 </script>

@@ -1,5 +1,5 @@
-import type { AppModule } from '../types'
-import { routes } from './routes'
+import type { AppModule } from '@/modules/types'
+import { routes } from '@/modules/services/routes'
 
 export const servicesModule: AppModule = {
   id: 'services',

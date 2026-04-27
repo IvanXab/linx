@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { servicesApi, type ServiceUnit } from './api'
+import { servicesApi, type ServiceUnit } from '@/modules/services/api'
 
 export const useServicesStore = defineStore('services', () => {
   const items = ref<ServiceUnit[]>([])

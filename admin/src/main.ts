@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import '@/style.css'
+import '@/app/styles/index.scss'
 import App from '@/App.vue'
 import { registerProviders } from '@/app/providers'
 

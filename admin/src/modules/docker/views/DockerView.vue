@@ -6,6 +6,10 @@ import type {
   ContainerAction,
   ContainerStatus,
 } from '@/modules/docker/api'
+import BaseButton from '@/shared/ui/BaseButton.vue'
+import BaseBadge from '@/shared/ui/BaseBadge.vue'
+
+type BadgeVariant = 'neutral' | 'success' | 'warning' | 'danger' | 'info'
 
 const store = useDockerStore()
 onMounted(store.load)
@@ -17,6 +21,15 @@ const allowedActions: Record<ContainerStatus, ContainerAction[]> = {
   exited: ['start'],
   created: ['start'],
   dead: [],
+}
+
+const statusVariant: Record<ContainerStatus, BadgeVariant> = {
+  running: 'success',
+  paused: 'warning',
+  restarting: 'info',
+  exited: 'danger',
+  created: 'neutral',
+  dead: 'danger',
 }
 
 const actionLabel: Record<ContainerAction, string> = {
@@ -48,7 +61,7 @@ function formatDate(iso: string): string {
   <section class="docker">
     <header class="docker__header">
       <h1>Docker</h1>
-      <button :disabled="store.loading" @click="store.load">Обновить</button>
+      <BaseButton :disabled="store.loading" @click="store.load">Обновить</BaseButton>
     </header>
 
     <p v-if="store.loading">Загрузка…</p>
@@ -69,21 +82,21 @@ function formatDate(iso: string): string {
           <td>{{ c.name }}</td>
           <td>{{ c.image }}</td>
           <td>
-            <span :class="['docker__status', `docker__status--${c.status}`]">
-              {{ c.status }}
-            </span>
+            <BaseBadge :variant="statusVariant[c.status]">{{ c.status }}</BaseBadge>
           </td>
           <td>{{ formatPorts(c.ports) }}</td>
           <td>{{ formatDate(c.createdAt) }}</td>
           <td class="docker__actions">
-            <button
+            <BaseButton
               v-for="action in actionsOrder"
               :key="action"
+              size="sm"
+              :variant="action === 'stop' ? 'danger' : 'secondary'"
               :disabled="!can(c, action) || store.acting === c.id"
               @click="store.act(c.id, action)"
             >
               {{ actionLabel[action] }}
-            </button>
+            </BaseButton>
           </td>
         </tr>
         <tr v-if="store.items.length === 0">
@@ -123,27 +136,6 @@ function formatDate(iso: string): string {
     display: flex;
     gap: 0.25rem;
     flex-wrap: wrap;
-  }
-
-  &__status {
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    padding: 0.125rem 0.5rem;
-    border-radius: 999px;
-    background: var(--color-hover);
-
-    &--running {
-      background: rgba(34, 197, 94, 0.18);
-    }
-
-    &--paused {
-      background: rgba(234, 179, 8, 0.22);
-    }
-
-    &--exited,
-    &--dead {
-      background: rgba(239, 68, 68, 0.2);
-    }
   }
 }
 </style>

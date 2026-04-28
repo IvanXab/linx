@@ -10,6 +10,7 @@ const navItems = modules.flatMap((m) => m.nav ?? [])
     <header class="base-layout__header">
       <div class="base-layout__brand">linx</div>
     </header>
+    
     <aside class="base-layout__aside">
       <nav class="base-layout__nav">
         <RouterLink
@@ -22,6 +23,7 @@ const navItems = modules.flatMap((m) => m.nav ?? [])
         </RouterLink>
       </nav>
     </aside>
+
     <main class="base-layout__main">
       <RouterView />
     </main>

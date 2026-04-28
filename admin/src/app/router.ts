@@ -5,6 +5,7 @@ import { layouts, DEFAULT_LAYOUT, type LayoutName } from '@/app/layouts'
 const moduleRoutes = modules.flatMap((m) => m.routes)
 
 const grouped = new Map<LayoutName, RouteRecordRaw[]>()
+
 for (const route of moduleRoutes) {
   const layout = route.meta?.layout ?? DEFAULT_LAYOUT
   if (!grouped.has(layout)) grouped.set(layout, [])

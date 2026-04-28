@@ -1,7 +1,7 @@
 const BASE = import.meta.env.VITE_API_URL ?? '/api'
 
 export class ApiError extends Error {
-  constructor(public status: number, message: string) {
+  constructor(message: string) {
     super(message)
   }
 }
@@ -13,7 +13,8 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
     body: body ? JSON.stringify(body) : undefined,
     credentials: 'include',
   })
-  if (!res.ok) throw new ApiError(res.status, await res.text())
+
+  if (!res.ok) throw new ApiError(await res.text())
   return res.status === 204 ? (undefined as T) : ((await res.json()) as T)
 }
 

@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import sensible from '@fastify/sensible';
 import { config } from './config.ts';
 import { healthRoutes } from './routes/health.ts';
+import { dockerRoutes } from './modules/docker/routes.ts';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -18,6 +19,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(cors, { origin: true });
 
   await app.register(healthRoutes, { prefix: '/health' });
+  await app.register(dockerRoutes, { prefix: '/docker' });
 
   return app;
 }

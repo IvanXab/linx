@@ -19,7 +19,7 @@ const layoutRoutes: RouteRecordRaw[] = Array.from(grouped, ([name, children]) =>
 }))
 
 const routes: RouteRecordRaw[] = [
-  { path: '/', redirect: '/services' },
+  { path: '/', redirect: '/docker' },
   ...layoutRoutes,
 ]
 
